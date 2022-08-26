@@ -1,0 +1,31 @@
+#root {
+    min-height: 100vh;
+}
+
+#wrapper-border {
+    border: 10px black;
+    border-style: groove;
+    padding: 10vh 15vw;
+    max-width: 100vw;
+    min-width: max-content;
+}
+
+#whiteboard-ledge {
+    border: 2rem solid #00000000;
+    border-bottom: 2rem solid grey;
+    width: calc(100% + 5rem);
+    position: absolute;
+    top: calc(100% - 2rem);
+    left: -2.5rem;
+}
+
+canvas {
+    border: 1px dashed black;
+}
+
+#canvas-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
