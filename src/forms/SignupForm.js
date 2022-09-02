@@ -12,7 +12,8 @@ const FormSchema = Yup.object({
 
 const initialValues = {
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
 }
 
 
@@ -20,13 +21,19 @@ export default function LoginForm() {
     const { alert, setAlert, setUser } = useContext(AppContext);
     // const { setUser, setAlerts } = useContext(AppContext);
 
-    const handleSubmit = async ({ email, password }) => {
+    const handleSubmit = async ({ email, password, confirmPassword }) => {
+        if (password !== confirmPassword) {
+            setAlert({ theme: "danger", text: "Passwords don't match!" })
+            return;
+        }
         const source = CancelToken.source();
-        const res = await userApi.login(email, password, source.token);
+        const res = await userApi.register(email, password, source.token);
+        console.log(res);
         if (!res.ok) setAlert({ theme: "danger", text: res.data.message });
-        else setAlert({ theme: "success", text: res.data.message })
-
-        if (res.ok) setUser({ email, host: false });
+        else {
+            setAlert({ theme: "success", text: res.data.message })
+            setUser({ email, host: false })
+        }
     }
 
     const formik = useFormik({
@@ -35,9 +42,6 @@ export default function LoginForm() {
         onSubmit: (values) => handleSubmit(values)
     });
 
-    const logStuff = () => {
-
-    }
     return (
         <form onSubmit={formik.handleSubmit} className="flex-center flex-column">
             <div className="form-floating mb-3">
@@ -64,37 +68,23 @@ export default function LoginForm() {
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     error={`${formik.touched.password}`}
-                // helperText={formik.touched.password && formik.errors.password}
                 />
                 <label htmlFor="floatingPassword">Password</label>
             </div>
-            <button type="submit" className="btn btn-outline-info w-100" onClick={logStuff}>Login</button>
-            {/* <TextField
-                id="email"
-                name="email"
-                fullWidth
-                sx={{ mb: 2, mt: 2 }}
-                label="Email"
-                placeholder="Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-            />
-            <TextField
-                id="password"
-                name="password"
-                type="password"
-                fullWidth
-                sx={{ mb: 2, mt: 2 }}
-                label="Password"
-                placeholder="Password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
-            />
-            <Button type="submit" sx={{ width: "100%" }}>Login</Button> */}
+            <div className="form-floating mb-3">
+                <input
+                    type="password"
+                    className="form-control"
+                    name="confirmPassword"
+                    id="floatingconfirmPassword"
+                    placeholder="Confirm password"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    error={`${formik.touched.confirmPassword}`}
+                />
+                <label htmlFor="floatingconfirmPassword">Confirm password</label>
+            </div>
+            <button type="submit" className="btn btn-outline-info w-100">Sign up</button>
         </form>
     )
 }

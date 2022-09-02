@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   apisauce: ^2.1.5
+  eslint: ^8.22.0
   formik: ^2.2.9
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -13,6 +14,7 @@ specifiers:
 
 dependencies:
   apisauce: 2.1.5
+  eslint: 8.22.0
   formik: 2.2.9_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0

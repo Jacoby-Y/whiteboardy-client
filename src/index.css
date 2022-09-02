@@ -12,3 +12,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.alert {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-width: 2px !important;
+}
+
+.alert .alert-x {
+  padding: 0.35rem 0.7rem;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  left: 100%;
+  bottom: 100%;
+  transform: translate(-50%, 50%);
+  background-color: inherit;
+  border: inherit;
+  clip-path: polygon(0 0, 103% 0, 103% 100%, 50% 100%, 0 50%);
+}
+
+#canvas-loading {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
+
+canvas {
+  background-color: white;
+}

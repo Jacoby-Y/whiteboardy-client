@@ -1,27 +1,43 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Canvas from '../Components/Canvas';
-import { useParams, useNavigate } from "react-router-dom";
+import Canvas from '../components/Canvas';
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { AppContext } from '../contexts/AppContext';
+import UserApi from "../api/User";
 
 
 function Whiteboard() {
-    const { setId } = useContext(AppContext);
+    const { setId, id, setAlert, user } = useContext(AppContext);
     const params = useParams();
     const navigate = useNavigate();
     const boardID = params.id;
 
-    if (!boardID) {
-        // Set error: "No whiteboard available with that ID!"
-        navigate("/")
-    }
+    console.log(`Loading board id: ${boardID}`);
 
     useEffect(() => {
+        // (async () => {
+        //     // const found = await UserApi.hasWhiteboard(boardID);
+
+        // })();
+        if (!boardID) { //  || (!found && !user.host)
+            console.log("Ain't no board!");
+            setAlert({ theme: "danger", text: "Can't find whitebaord!" });
+            navigate("/hub");
+            return;
+        }
+
         setId(boardID);
-    });
+    }, []);
+
+    useEffect(() => {
+        console.log(id);
+    }, [id])
 
     return (
-        <div id="canvas-wrapper">
-            <Canvas width={700} height={500} />
+        <div id="canvas-wrapper" className="flex-column">
+            {id
+                ? <Canvas width={700} height={500} />
+                : <>hi</>}
+            {/* <Navigate to="/hub" /> */}
         </div>
     );
 }
