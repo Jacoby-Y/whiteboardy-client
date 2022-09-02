@@ -4,4 +4,4 @@
 ___
 
 Hosted here: https://whiteboardy-server.herokuapp.com/   
-Front end code here: https://github.com/Jacoby-Y/whiteboardy-server/
+Back end code here: https://github.com/Jacoby-Y/whiteboardy-server/
